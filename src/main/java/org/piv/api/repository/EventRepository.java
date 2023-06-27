@@ -1,12 +1,13 @@
 package org.piv.api.repository;
 
-import org.piv.api.dao.User;
+import org.piv.api.dao.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByLogin(String login);
+public interface EventRepository extends JpaRepository<Event, Long> {
+
+    Optional<Event> findById(Long aLong);
 }
