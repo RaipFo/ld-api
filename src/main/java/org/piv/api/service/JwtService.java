@@ -16,6 +16,9 @@ import java.util.function.Function;
 public class JwtService {
     private static final String jwtSigningKey = "81D59AEB265E644A727268DA62299";
 
+    public String getToken(String authHeader){
+        return authHeader.substring(7);
+    }
     public String extractLogin(String token) {
         return extractClaim(token, Claims::getSubject);
     }

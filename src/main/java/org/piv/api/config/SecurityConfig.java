@@ -1,5 +1,7 @@
 package org.piv.api.config;
 
+import org.piv.api.exception.RestAccessDeniedHandler;
+import org.piv.api.exception.RestAuthenticationEntryPoint;
 import org.piv.api.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,14 +27,30 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
+            .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/api/v1/auth/**").permitAll()
+            .antMatchers("/**/auth/**", "/**/event/**").permitAll()
+            .antMatchers("/**/contract/submit").hasAuthority("EVENT_ADMIN")
+            .antMatchers("/**/contract/**").hasAuthority("PRINCIPAL")
             .anyRequest().authenticated()
+            .and()
+            .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+            .authenticationEntryPoint(restAuthenticationEntryPoint())
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authenticationProvider(authenticationProvider)
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+
+    @Bean
+    RestAccessDeniedHandler accessDeniedHandler() {
+        return new RestAccessDeniedHandler();
+    }
+
+    @Bean
+    RestAuthenticationEntryPoint restAuthenticationEntryPoint(){
+        return new RestAuthenticationEntryPoint();
     }
 }

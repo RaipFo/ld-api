@@ -1,7 +1,7 @@
-package org.piv.api.model;
+package org.piv.api.model.enums;
 
 public enum Role {
-    ADMIN,
+    PRINCIPAL,
     EVENT_ADMIN,
     PARTICIPANT
 }

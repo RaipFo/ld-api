@@ -1,15 +1,16 @@
 package org.piv.api.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthenticationRequest {
+    @NotNull(message = "Login is not be null")
     private String login;
+    @NotNull(message = "Password is not be null")
     private String password;
 }
