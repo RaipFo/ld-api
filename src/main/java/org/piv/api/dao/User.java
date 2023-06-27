@@ -1,6 +1,7 @@
-package org.piv.api.model;
+package org.piv.api.dao;
 
 import lombok.*;
+import org.piv.api.model.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,10 +18,10 @@ import java.util.List;
 @EqualsAndHashCode(exclude = "id")
 @Builder
 @Entity
-@Table(name = "app_user")
+@Table(name = "app_users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String login;
     private String password;
