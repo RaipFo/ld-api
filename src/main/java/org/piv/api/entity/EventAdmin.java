@@ -1,8 +1,9 @@
-package org.piv.api.dao;
+package org.piv.api.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,11 +13,13 @@ import javax.persistence.*;
 @EqualsAndHashCode(exclude = {"id", "user"})
 @Builder
 @Entity
-@Table(name = "principals")
-public class Principal {
+@Table(name = "event_admins")
+public class EventAdmin {
     @Id
     private Long id;
-    private Long inn;
+    private String org_name;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Event> events;
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "id")

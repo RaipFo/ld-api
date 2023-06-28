@@ -1,6 +1,6 @@
 package org.piv.api.repository;
 
-import org.piv.api.dao.Participant;
+import org.piv.api.entity.Participant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

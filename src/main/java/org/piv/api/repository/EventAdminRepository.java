@@ -1,6 +1,6 @@
 package org.piv.api.repository;
 
-import org.piv.api.dao.EventAdmin;
+import org.piv.api.entity.EventAdmin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

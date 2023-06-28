@@ -1,4 +1,4 @@
-package org.piv.api.dao;
+package org.piv.api.entity;
 
 import lombok.*;
 
