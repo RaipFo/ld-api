@@ -1,18 +1,14 @@
 package org.piv.api.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.piv.api.entity.Contract;
 import org.piv.api.model.ResponseMessage;
 import org.piv.api.service.ContractService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/contract")
+@RequestMapping("/api/contracts")
 public class ContractController {
     private final ContractService contractService;
 
@@ -20,11 +16,6 @@ public class ContractController {
     public ResponseEntity<ResponseMessage> submit(@RequestHeader(name = "Authorization") String authHeader) {
         contractService.submitContract(authHeader);
         return ResponseEntity.ok(new ResponseMessage("Application sent"));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Contract>> getAllContracts() {
-        return ResponseEntity.ok(contractService.getAllContracts());
     }
 
     @PostMapping("/{id}/approve")
