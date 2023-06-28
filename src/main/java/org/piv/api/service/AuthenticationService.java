@@ -46,7 +46,7 @@ public class AuthenticationService {
                 }
                 case EVENT_ADMIN:{
                     EventAdmin eventAdmin = EventAdmin.builder()
-                            .org_name(request.getOrg_name())
+                            .orgName(request.getOrg_name())
                             .user(user)
                             .build();
                     eventAdminRepository.save(eventAdmin);

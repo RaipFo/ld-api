@@ -14,7 +14,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    private static final String jwtSigningKey = "81D59AEB265E644A727268DA62299";
+    private static final String JWT_SIGNING_KEY = "81D59AEB265E644A727268DA62299";
 
     public String getToken(String authHeader){
         return authHeader.substring(7);
@@ -24,7 +24,7 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(jwtSigningKey).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(JWT_SIGNING_KEY).parseClaimsJws(token).getBody();
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
@@ -43,7 +43,7 @@ public class JwtService {
                 .claim("authorities", userDetails.getAuthorities())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(24)))
-                .signWith(SignatureAlgorithm.HS256, jwtSigningKey).compact();
+                .signWith(SignatureAlgorithm.HS256, JWT_SIGNING_KEY).compact();
     }
 
     public Boolean isTokenValid(String token, UserDetails userDetails) {

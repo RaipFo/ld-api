@@ -52,7 +52,7 @@ public class EventService {
                 event.getInfo(),
                 new EventAdminDTO(
                         event.getEventAdmin().getId(),
-                        event.getEventAdmin().getOrg_name()));
+                        event.getEventAdmin().getOrgName()));
     }
 
     public List<EventDTO> getAllEvent() {
@@ -64,7 +64,7 @@ public class EventService {
                         event.getInfo(),
                         new EventAdminDTO(
                                 event.getEventAdmin().getId(),
-                                event.getEventAdmin().getOrg_name())))
+                                event.getEventAdmin().getOrgName())))
                 .collect(Collectors.toList());
     }
 }

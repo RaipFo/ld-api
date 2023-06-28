@@ -17,7 +17,7 @@ import java.util.List;
 public class EventAdmin {
     @Id
     private Long id;
-    private String org_name;
+    private String orgName;
     @OneToMany(fetch = FetchType.LAZY)
     private List<Event> events;
     @OneToOne(fetch = FetchType.LAZY)

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.piv.api.exception.RestAccessDeniedHandler;
 import org.piv.api.exception.RestAuthenticationEntryPoint;
 import org.piv.api.security.JwtAuthenticationFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,6 +17,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
+    private final RestAccessDeniedHandler restAccessDeniedHandler;
+    private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -31,23 +32,13 @@ public class SecurityConfig {
             .antMatchers("/**/events/*/register").hasAuthority("PARTICIPANT")
             .anyRequest().authenticated()
             .and()
-            .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
-            .authenticationEntryPoint(restAuthenticationEntryPoint())
+            .exceptionHandling().accessDeniedHandler(restAccessDeniedHandler)
+            .authenticationEntryPoint(restAuthenticationEntryPoint)
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authenticationProvider(authenticationProvider)
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
-    }
-
-    @Bean
-    RestAccessDeniedHandler accessDeniedHandler() {
-        return new RestAccessDeniedHandler();
-    }
-
-    @Bean
-    RestAuthenticationEntryPoint restAuthenticationEntryPoint(){
-        return new RestAuthenticationEntryPoint();
     }
 }
