@@ -1,5 +1,6 @@
 package org.piv.api.config;
 
+import lombok.RequiredArgsConstructor;
 import org.piv.api.exception.RestAccessDeniedHandler;
 import org.piv.api.exception.RestAuthenticationEntryPoint;
 import org.piv.api.security.JwtAuthenticationFilter;
@@ -13,15 +14,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
-
-    @Autowired
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, AuthenticationProvider authenticationProvider) {
-        this.jwtAuthFilter = jwtAuthFilter;
-        this.authenticationProvider = authenticationProvider;
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

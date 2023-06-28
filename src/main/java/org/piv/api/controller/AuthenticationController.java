@@ -1,5 +1,6 @@
 package org.piv.api.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.piv.api.model.AuthenticationRequest;
 import org.piv.api.model.AuthenticationResponse;
 import org.piv.api.model.RegistrationRequest;
@@ -15,14 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/auth")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
-
-    @Autowired
-    public AuthenticationController(AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
-    }
 
     @PostMapping("/register")
     public ResponseEntity<ResponseMessage> register(@Valid @RequestBody RegistrationRequest request) {

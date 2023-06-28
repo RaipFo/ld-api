@@ -1,19 +1,15 @@
 package org.piv.api.service;
 
-import org.piv.api.dao.*;
+import lombok.RequiredArgsConstructor;
+import org.piv.api.entity.*;
 import org.piv.api.model.EventRequest;
-import org.piv.api.model.enums.Status;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class EventService {
     private final RepositoryService repositoryService;
     private final JwtService jwtService;
-
-    public EventService(RepositoryService repositoryService, JwtService jwtService) {
-        this.repositoryService = repositoryService;
-        this.jwtService = jwtService;
-    }
 
     private User getUserFromBd(String authHeader){
         String jwt = jwtService.getToken(authHeader);
@@ -42,7 +38,7 @@ public class EventService {
         event.getParticipants().add(participant);
         repositoryService.getEventRepository().save(event);
 
-        participant.getEvents().add(event);
-        repositoryService.getParticipantsRepository().save(participant);
+//        participant.getEvents().add(event);
+//        repositoryService.getParticipantsRepository().save(participant);
     }
 }

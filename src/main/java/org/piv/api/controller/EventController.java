@@ -1,5 +1,6 @@
 package org.piv.api.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.piv.api.model.EventRequest;
 import org.piv.api.model.RegistrationRequest;
 import org.piv.api.model.ResponseMessage;
@@ -11,15 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/event")
 public class EventController {
     private final JwtService jwtService;
     private final EventService eventService;
-
-    public EventController(JwtService jwtService, EventService eventService) {
-        this.jwtService = jwtService;
-        this.eventService = eventService;
-    }
 
     @PostMapping("/create")
     public ResponseEntity<ResponseMessage> createEvent(@RequestHeader(name = "Authorization") String authHeader,

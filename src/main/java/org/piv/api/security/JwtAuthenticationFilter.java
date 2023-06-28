@@ -1,5 +1,6 @@
 package org.piv.api.security;
 
+import lombok.RequiredArgsConstructor;
 import org.piv.api.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -18,15 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
     private final JwtService jwtService;
-
-    @Autowired
-    public JwtAuthenticationFilter(UserDetailsService userDetailsService, JwtService jwtService) {
-        this.userDetailsService = userDetailsService;
-        this.jwtService = jwtService;
-    }
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,

@@ -1,6 +1,7 @@
 package org.piv.api.controller;
 
-import org.piv.api.dao.Contract;
+import lombok.RequiredArgsConstructor;
+import org.piv.api.entity.Contract;
 import org.piv.api.model.ResponseMessage;
 import org.piv.api.service.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/contract")
 public class ContractController {
     private final ContractService contractService;
-
-    @Autowired
-    public ContractController(ContractService contractService) {
-        this.contractService = contractService;
-    }
 
     @PostMapping("/submit")
     public ResponseEntity<ResponseMessage> submit(@RequestHeader(name = "Authorization") String authHeader) {

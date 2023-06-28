@@ -1,19 +1,20 @@
 package org.piv.api.service;
 
-import org.piv.api.dao.*;
+import lombok.RequiredArgsConstructor;
+import org.piv.api.entity.*;
 import org.piv.api.model.*;
 import org.piv.api.model.enums.Role;
 import org.piv.api.repository.EventAdminRepository;
 import org.piv.api.repository.ParticipantsRepository;
 import org.piv.api.repository.PrincipalRepository;
 import org.piv.api.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AuthenticationService {
 
     private final UserRepository userRepository;
@@ -23,20 +24,6 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-
-    @Autowired
-    public AuthenticationService(UserRepository userRepository, PrincipalRepository principalRepository,
-                                 EventAdminRepository eventAdminRepository, ParticipantsRepository participantsRepository,
-                                 PasswordEncoder passwordEncoder, JwtService jwtService,
-                                 AuthenticationManager authenticationManager) {
-        this.userRepository = userRepository;
-        this.principalRepository = principalRepository;
-        this.eventAdminRepository = eventAdminRepository;
-        this.participantsRepository = participantsRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-        this.authenticationManager = authenticationManager;
-    }
 
     public String register(RegistrationRequest request) {
         String login = request.getLogin();

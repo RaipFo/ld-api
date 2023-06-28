@@ -1,7 +1,8 @@
 package org.piv.api.service;
 
-import org.piv.api.dao.Contract;
-import org.piv.api.dao.User;
+import lombok.RequiredArgsConstructor;
+import org.piv.api.entity.Contract;
+import org.piv.api.entity.User;
 import org.piv.api.model.enums.Status;
 import org.springframework.stereotype.Service;
 
@@ -9,14 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ContractService {
     private final RepositoryService repositoryService;
     private final JwtService jwtService;
-
-    public ContractService(RepositoryService repositoryService, JwtService jwtService) {
-        this.repositoryService = repositoryService;
-        this.jwtService = jwtService;
-    }
 
     private User getUserFromBd(String authHeader){
         String jwt = jwtService.getToken(authHeader);
