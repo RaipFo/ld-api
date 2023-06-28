@@ -25,9 +25,10 @@ public class SecurityConfig {
         http
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/**/auth/**", "/**/event/**").permitAll()
-            .antMatchers("/**/contract/submit").hasAuthority("EVENT_ADMIN")
-            .antMatchers("/**/contract/**").hasAuthority("PRINCIPAL")
+            .antMatchers("/**/auth/*", "/**/events", "/**/events/*").permitAll()
+            .antMatchers("/**/contracts/*").hasAuthority("EVENT_ADMIN")
+            .antMatchers("/**/contracts", "/**/contracts/**").hasAuthority("PRINCIPAL")
+            .antMatchers("/**/events/*/register").hasAuthority("PARTICIPANT")
             .anyRequest().authenticated()
             .and()
             .exceptionHandling().accessDeniedHandler(accessDeniedHandler())

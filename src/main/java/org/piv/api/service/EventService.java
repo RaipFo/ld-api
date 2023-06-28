@@ -2,8 +2,13 @@ package org.piv.api.service;
 
 import lombok.RequiredArgsConstructor;
 import org.piv.api.entity.*;
+import org.piv.api.model.EventAdminDTO;
+import org.piv.api.model.EventDTO;
 import org.piv.api.model.EventRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,8 +42,29 @@ public class EventService {
         Event event = repositoryService.getEventRepository().findById(eventId).get();
         event.getParticipants().add(participant);
         repositoryService.getEventRepository().save(event);
+    }
 
-//        participant.getEvents().add(event);
-//        repositoryService.getParticipantsRepository().save(participant);
+    public EventDTO getEvent(Long eventId) {
+        Event event = repositoryService.getEventRepository().findById(eventId).orElseThrow();
+        return new EventDTO(
+                event.getId(),
+                event.getCost(),
+                event.getInfo(),
+                new EventAdminDTO(
+                        event.getEventAdmin().getId(),
+                        event.getEventAdmin().getOrg_name()));
+    }
+
+    public List<EventDTO> getAllEvent() {
+        return repositoryService.getEventRepository().findAll()
+                .stream()
+                .map(event -> new EventDTO(
+                        event.getId(),
+                        event.getCost(),
+                        event.getInfo(),
+                        new EventAdminDTO(
+                                event.getEventAdmin().getId(),
+                                event.getEventAdmin().getOrg_name())))
+                .collect(Collectors.toList());
     }
 }

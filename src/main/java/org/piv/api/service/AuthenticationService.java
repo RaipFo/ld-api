@@ -64,7 +64,7 @@ public class AuthenticationService {
                     break;
                 }
                 default:
-                    break;
+                    return null;
             }
             return "Registration successful";
         }

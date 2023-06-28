@@ -6,7 +6,6 @@ import org.piv.api.entity.User;
 import org.piv.api.model.enums.Status;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,9 +37,5 @@ public class ContractService {
             updateContract.setStatus(Status.OK);
             repositoryService.getContractRepository().save(updateContract);
         }
-    }
-
-    public List<Contract> getAllContracts() {
-        return repositoryService.getContractRepository().findAll();
     }
 }
